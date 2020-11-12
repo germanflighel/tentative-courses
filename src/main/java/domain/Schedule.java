@@ -1,7 +1,6 @@
 package domain;
 
 import java.time.DayOfWeek;
-import java.util.List;
 
 public class Schedule {
 
@@ -13,7 +12,7 @@ public class Schedule {
         this.time = time;
     }
 
-    public boolean accepts(Schedule aTime) {
+    public boolean accepts(Schedule aTime) {     // This message can be modified to include the tolerance policy
         return aTime.day == day && aTime.time.equals(time);
     }
 }

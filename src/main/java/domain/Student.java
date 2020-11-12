@@ -19,10 +19,6 @@ public class Student {
         this.availableTimes = availableTimes;
     }
 
-    public Boolean acceptsATime(Schedule teachingTimes) {
-        return availableTimes.stream().anyMatch(availableTime -> true);
-    }
-
     public Boolean acceptsModality(Modality modality) {
         return this.modality == modality;
     }
@@ -42,10 +38,6 @@ public class Student {
     public Boolean needsEnrollmentConfirmationFor(Course course) {
         // TODO: Add confirmation checking via course.schedule matching
         return false;
-    }
-
-    public Boolean canEnrollFor(Course course) {
-        return course.acceptsNewStudent() && course.hasLevel(this.level) && course.hasModality(this.modality) && !course.hasAStudent(this);
     }
 
     public Boolean isAvailableFor(Schedule schedule) {
