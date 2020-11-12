@@ -21,10 +21,7 @@ public class CourseGenerator {
 
         List<Course> courses = new ArrayList<>();
 
-        /**
-         * 1. Mapear todos los horarios posibles de los docentes
-         * 2.
-         */
+/*
 
         List<Schedule> allPossibleSchedules = this.allPossibleSchedules();
 
@@ -34,30 +31,27 @@ public class CourseGenerator {
         ).collect(Collectors.toList());
 
         possibleCourses = possibleCourses.stream().map(possibleCourse -> possibleCourse.addPossibleStudents(availableStudents)).collect(Collectors.toList());
-//        return possibleCourses.stream().map(CourseBuilder::allPossibleStudentsCombinations).collect(Collectors.toList()).stream().flatMap(Collection::stream).collect(Collectors.toList());
+        return possibleCourses.stream().map(CourseBuilder::allPossibleStudentsCombinations).collect(Collectors.toList()).stream().flatMap(Collection::stream).collect(Collectors.toList());
         List<CourseBuilder> courseBuilders = possibleCourses.stream().map(CourseBuilder::allPossibleStudentsCombinationsv2).collect(Collectors.toList()).stream().collect(Collectors.toList());
         courses = courseBuilders.stream().map(CourseBuilder::buildPossibles).collect(Collectors.toList()).stream().flatMap(Collection::stream).collect(Collectors.toList());
 
-        return courses;
 
-        /*availableStudents.forEach(student -> {
+        return courses;
+*/
+        availableStudents.forEach(student -> {
             student.getAvailableTimes().forEach(availableTime -> {
                 List<Teacher> availableTeachers = this.availableTeachers.stream().filter(teacher -> teacher.isAvailableFor(availableTime)).collect(Collectors.toList());
                 availableTeachers.forEach(availableTeacher -> {
                     Course course = new Course(availableTeacher, availableTime, student.getLevel(), student.getModality());
                     course.enrollStudent(student);
-                    for (Student aStudent : availableStudents) {
-                        if (aStudent != student && aStudent.canEnrollFor(course)) {
-                            course.enrollStudent(aStudent);
-                        }
-                    }
+                    course.fillCourse(availableStudents.stream().filter(aStudent -> aStudent != student).collect(Collectors.toSet()));
                     if (courses.stream().noneMatch(anotherCourse -> anotherCourse.isTheSameAs(course)))
                         courses.add(course);
                 });
             });
         });
 
-        return courses;*/
+        return courses;
     }
 
     private List<Schedule> allPossibleSchedules() {
