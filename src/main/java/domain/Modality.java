@@ -8,21 +8,11 @@ package domain;
 public enum Modality {
     INDIVIDUAL() {
         @Override
-        public Boolean acceptsStudentQuantity(int size) {
-            return size == 1;
-        }
-
-        @Override
         public Boolean acceptsMoreStudents(int studentQuantity) {
             return false;
         }
     },
     GROUP() {
-        @Override
-        public Boolean acceptsStudentQuantity(int size) {
-            return 0 < size && size <= MAX;
-        }
-
         int MAX = 6;
         @Override
         public Boolean acceptsMoreStudents(int studentQuantity) {
@@ -31,6 +21,4 @@ public enum Modality {
     };
 
     public abstract Boolean acceptsMoreStudents(int studentQuantity);
-
-    public abstract Boolean acceptsStudentQuantity(int size);
 }

@@ -1,7 +1,5 @@
 package domain;
 
-import domain.Modality;
-
 import java.util.List;
 
 public class Student {
@@ -19,18 +17,6 @@ public class Student {
         this.availableTimes = availableTimes;
     }
 
-    public Boolean acceptsATime(Schedule teachingTimes) {
-        return availableTimes.stream().anyMatch(availableTime -> true);
-    }
-
-    public Boolean acceptsModality(Modality modality) {
-        return this.modality == modality;
-    }
-
-    public Boolean acceptsLevel(Level level) {
-        return this.level == level;
-    }
-
     public Level getLevel() {
         return level;
     }
@@ -40,15 +26,11 @@ public class Student {
     }
 
     public Boolean needsEnrollmentConfirmationFor(Course course) {
-        // TODO: Add confirmation checking via course.schedule matching
-        return false;
+        return availableTimes.stream().anyMatch(availableTime -> availableTime.accepts(course.getSchedule()));
     }
 
     public Boolean canEnrollFor(Course course) {
         return course.acceptsNewStudent() && course.hasLevel(this.level) && course.hasModality(this.modality) && !course.hasAStudent(this);
     }
 
-    public Boolean isAvailableFor(Schedule schedule) {
-        return availableTimes.stream().anyMatch(anAvailableTime -> anAvailableTime.accepts(schedule));
-    }
 }

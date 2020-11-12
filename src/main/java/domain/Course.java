@@ -31,10 +31,6 @@ public class Course {
         return modality.acceptsMoreStudents(enrollments.size());
     }
 
-    public Level getLevel() {
-        return level;
-    }
-
     public boolean hasLevel(Level level) {
         return level == this.level;
     }
@@ -49,14 +45,6 @@ public class Course {
                 this.enrollStudent(aStudent);
             }
         }
-    }
-
-    /**
-     * Course could be invalid because of Modality and enrollments.size()
-     * @return
-     */
-    public boolean isValid() {
-        return true;
     }
 
     public boolean isTheSameAs(Course anotherCourse) {
@@ -92,7 +80,7 @@ public class Course {
         return this.enrolledStudents().contains(student);
     }
 
-    public void enrollStudents(Set<Student> students) {
-        this.enrollments.addAll(students.stream().map(student -> new Enrollment(student, true)).collect(Collectors.toSet()));
+    public Schedule getSchedule() {
+        return schedule;
     }
 }

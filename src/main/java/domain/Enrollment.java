@@ -10,12 +10,7 @@ public class Enrollment {
         this.isConfirmed = isConfirmed;
     }
 
-    public Boolean sameAs(Enrollment enrollment) {
-        return enrollment.student.equals(this.student) && enrollment.isConfirmed.equals(this.isConfirmed);
-    }
-
     public Student getStudent() {
         return student;
     }
-
 }
